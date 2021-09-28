@@ -40,6 +40,16 @@ type IdentityPrivateKey struct {
 	q *bn256.G2
 }
 
+func (pk *MasterPublicKey) SetValue(publickey *bn256.G1) *MasterPublicKey {
+	pk.g1 = publickey
+	return pk
+}
+
+func (sk *MasterPrivateKey) SetValue(secret *big.Int) *MasterPrivateKey{
+	sk.s = secret
+	return sk
+}
+
 func Setup(random io.Reader) (*MasterPublicKey, *MasterPrivateKey) {
 	secret, err := rand.Int(random, bn256.Order)
 	if err != nil {
